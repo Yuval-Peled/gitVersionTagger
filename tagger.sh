@@ -43,6 +43,10 @@ else
 	echo "This service's most recent tag is: "$mostRecentTag
 fi
 
+#check to see this commit isn't tagged already
+recentTagHash=$()
+
+
 # pull the version number from the tag
 versionRegexp="([0-9]+)\\.([0-9]+)" # Regexp that matches number.number"
 if [[ $mostRecentTag =~ $versionRegexp ]]
