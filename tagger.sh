@@ -43,15 +43,6 @@ else
 	echo "This service's most recent tag is: "$mostRecentTag
 fi
 
-#check to see this commit isn't tagged already
-recentTagHash=$( git log --pretty=format:'%H' -n 1 $mostRecentTag )
-currentCommitHash=$( git log --pretty=format:'%H' -n 1 )
-if [ "$recentTagHash" == "$currentCommitHash" ]
-then
-	echo "Current commit is already tagged: ["$mostRecentTag"]. Tagger will now exit."
-	exit 0
-fi
-
 
 # pull the version number from the tag
 versionRegexp="([0-9]+)\\.([0-9]+)" # Regexp that matches number.number"
@@ -63,6 +54,15 @@ else
 	errorMessage="Latest service tag doesn't have a version in it. Please fix manually using 'git tag'!  (don't forget to push the tag to the remote repository)"
 	echo $errorMessage >&2
 	exit 3
+fi
+
+#check to see this commit isn't tagged already
+recentTagHash=$( git log --pretty=format:'%H' -n 1 $serviceName-$majorVersion.$minorVersion)
+currentCommitHash=$( git log --pretty=format:'%H' -n 1 )
+if [ "$recentTagHash" == "$currentCommitHash" ]
+then
+	echo "Current commit is already tagged: ["$mostRecentTag"]. Tagger will now exit."
+	exit 0
 fi
 
 # bump version number according to whether this is a feautre/hotfix branch
