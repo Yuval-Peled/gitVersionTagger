@@ -44,7 +44,13 @@ else
 fi
 
 #check to see this commit isn't tagged already
-recentTagHash=$()
+recentTagHash=$( git log --pretty=format:'%H' -n 1 $mostRecentTag )
+currentCommitHash=$( git log --pretty=format:'%H' -n 1 )
+if [ "$recentTagHash" == "$currentCommitHash" ]
+then
+	echo "Current commit is already tagged: ["$mostRecentTag"]. Tagger will now exit."
+	exit 0
+fi
 
 
 # pull the version number from the tag
