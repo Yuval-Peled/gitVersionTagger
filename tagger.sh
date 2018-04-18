@@ -50,7 +50,7 @@ then
 	majorVersion=${BASH_REMATCH[1]}
 	minorVersion=${BASH_REMATCH[2]}
 else
-	errorMessage="Latest service tag doesn't have a version in it. Please fix manually using 'git tag'!  (don't forget to push the tag to the remote repository)"
+	errorMessage="Latest service tag doesn't have a version in it. Please fix manually using 'git tag'.  (don't forget to push the tag to the remote repository)"
 	echo $errorMessage >&2
 	exit 3
 fi
